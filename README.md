@@ -1,2 +1,2 @@
-# docker_and_kubernetes_tutorials
-This repository contains docker and kubernetes  stuffs.
+# Docker and Kubernetes Tutorials
+This repository serves as a blueprint to the foundations of my learning process.
