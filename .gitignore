@@ -1,2 +1,2 @@
-node_modules
-sample-large-file
+node_modules/
+build-context/sample-large-file
