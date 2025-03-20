@@ -8,4 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+ENV PORT=3000
+ENV APP_NAME="My Python App"
+
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT"]

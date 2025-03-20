@@ -1,11 +1,14 @@
+import os
 from fastapi import FastAPI # type: ignore
+import uvicorn # type: ignore
 
 app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message": "Hello, This is my python application!"}
+    app_name = os.getenv("APP_NAME")
+    return {"message": f"Hello, This is {app_name}, feel free to explore!"}
 
 if __name__ == "__main__":
-    import uvicorn # type: ignore
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    port = int(os.getenv("PORT", 8000)) 
+    uvicorn.run(app, host="0.0.0.0", port=port)
