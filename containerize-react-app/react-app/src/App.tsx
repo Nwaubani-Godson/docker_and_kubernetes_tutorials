@@ -10,6 +10,7 @@ function App() {
         <p>
          Hey folks, welcome to the react application sample!!
          Feel free to explore!!!
+         Dont forget to reach out to me if you have any worries, I love you all. See you soon.
         </p>
         <a
           className="App-link"
