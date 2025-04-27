@@ -1,0 +1,50 @@
+name: notes-backend
+
+services:
+  notes:
+    image: notes-backend:dev
+    container_name: notes-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3001:80
+    environment:
+      - PORT=80
+      - NOTES_DB_HOST=notes-db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+    networks:
+      - notes-net
+    depends_on:
+      - notes-db
+
+  notes-db:
+    image: mongo:7.0
+    container_name: notes-db
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: ./db-config/mongodb-init.js
+        target: /docker-entrypoint-initdb.d/mongodb-init.js
+        read_only: true
+      - type: volume
+        source: notes-data
+        target: /data/db
+    networks:
+      - notes-net
+
+
+volumes:
+  notes-data:
+
+networks:
+  notes-net:
+    

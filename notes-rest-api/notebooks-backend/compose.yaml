@@ -1,0 +1,50 @@
+name: notebooks-backend
+
+services:
+  notebooks:
+    image: notebooks-backend:dev
+    container_name: notebooks-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:80
+    environment:
+      - PORT=80
+      - NOTEBOOKS_DB_HOST=notebooks-db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+    networks:
+      - notebooks-net
+    depends_on:
+      - notebooks-db
+
+  notebooks-db:
+    image: mongo:7.0
+    container_name: notebooks-db
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: ./db-config/mongodb-init.js
+        target: /docker-entrypoint-initdb.d/mongodb-init.js
+        read_only: true
+      - type: volume
+        source: notebooks-data
+        target: /data/db
+    networks:
+      - notebooks-net
+
+
+
+volumes:
+  notebooks-data:
+
+networks:
+  notebooks-net:
