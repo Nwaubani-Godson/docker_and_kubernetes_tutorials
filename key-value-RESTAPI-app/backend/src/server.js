@@ -10,7 +10,7 @@ app.get('/health', (req, res) => {
     res.status(200).send('up and running, all good!!');
 });
 
-console.log('Connecting to MongoDB...');
+console.log('Connecting to the DB...');
 mongoose.connect(`mongodb://${process.env.MONGODB_HOST}/${process.env.KEY_VALUE_DB}`, {
     auth: {
         username: process.env.KEY_VALUE_DB_USER,
@@ -22,7 +22,7 @@ mongoose.connect(`mongodb://${process.env.MONGODB_HOST}/${process.env.KEY_VALUE_
     app.listen(port, () => {
         console.log(`Server is listening on port ${port}`);
     });
-    console.log('Connected to MongoDB');
+    console.log('Connected to the DB');
 })
 .catch(err => {
     console.error('Error connecting to MongoDB:', err);
